@@ -1,4 +1,5 @@
-﻿using MvcCoreElastiCacheAWS.Helpers;
+﻿using Microsoft.Extensions.Caching.Distributed;
+using MvcCoreElastiCacheAWS.Helpers;
 using MvcCoreElastiCacheAWS.Models;
 using MvcCoreElastiCacheAWS.Repositories;
 using Newtonsoft.Json;
@@ -6,17 +7,16 @@ using StackExchange.Redis;
 
 namespace MvcCoreElastiCacheAWS.Services {
     public class ServiceAWSCache {
-        private IDatabase cache;
+        private readonly IDistributedCache cache;
         private RepositoryCoches repo;
 
-        public ServiceAWSCache(RepositoryCoches repo) {
-            this.cache = HelperCacheRedis.Connection.GetDatabase();
+        public ServiceAWSCache(RepositoryCoches repo, IDistributedCache cache) {
+            this.cache = cache;
             this.repo = repo;
         }
 
         public async Task<List<Coche>> GetCochesFavoritosAsync() {
-            //return this.repo.GetCoches();
-            string jsonCoches = await this.cache.StringGetAsync("cochesfavoritos");
+            string jsonCoches = await this.cache.GetStringAsync("cochesfavoritos");
             if (jsonCoches == null) {
                 return null;
             } else {
@@ -33,7 +33,7 @@ namespace MvcCoreElastiCacheAWS.Services {
             }
             cars.Add(coche);
             string jsonCoches = JsonConvert.SerializeObject(cars);
-            await this.cache.StringSetAsync("cochesfavoritos", jsonCoches, TimeSpan.FromMinutes(30));
+            await this.cache.SetStringAsync("cochesfavoritos", jsonCoches);
         }
 
         public async Task DeleteCocheFavoritoAsync(int idcoche) {
@@ -42,10 +42,10 @@ namespace MvcCoreElastiCacheAWS.Services {
                 Coche carEliminar = coches.FirstOrDefault(x => x.IdCoche == idcoche);
                 coches.Remove(carEliminar);
                 if (coches.Count == 0) {
-                    await this.cache.KeyDeleteAsync("cochesfavoritos");
+                    await this.cache.RemoveAsync("cochesfavoritos");
                 } else {
                     string jsonCoches = JsonConvert.SerializeObject(coches);
-                    await this.cache.StringSetAsync("cochesfavoritos", jsonCoches, TimeSpan.FromMinutes(30));
+                    await this.cache.SetStringAsync("cochesfavoritos", jsonCoches);
                 }
             }
         }
