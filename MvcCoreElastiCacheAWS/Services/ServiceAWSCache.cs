@@ -33,7 +33,9 @@ namespace MvcCoreElastiCacheAWS.Services {
             }
             cars.Add(coche);
             string jsonCoches = JsonConvert.SerializeObject(cars);
-            await this.cache.SetStringAsync("cochesfavoritos", jsonCoches);
+            var options = new DistributedCacheEntryOptions(); // create options object
+            options.SetSlidingExpiration(TimeSpan.FromMinutes(1)); // 1 minute sliding expiration
+            await this.cache.SetStringAsync("cochesfavoritos", jsonCoches, options);
         }
 
         public async Task DeleteCocheFavoritoAsync(int idcoche) {
