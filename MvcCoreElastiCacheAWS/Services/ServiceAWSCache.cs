@@ -15,14 +15,14 @@ namespace MvcCoreElastiCacheAWS.Services {
         }
 
         public async Task<List<Coche>> GetCochesFavoritosAsync() {
-            return this.repo.GetCoches();
-            //string jsonCoches = await this.cache.StringGetAsync("cochesfavoritos");
-            //if (jsonCoches == null) {
-            //    return null;
-            //} else {
-            //    List<Coche> cars = JsonConvert.DeserializeObject<List<Coche>>(jsonCoches);
-            //    return cars;
-            //}
+            //return this.repo.GetCoches();
+            string jsonCoches = await this.cache.StringGetAsync("cochesfavoritos");
+            if (jsonCoches == null) {
+                return null;
+            } else {
+                List<Coche> cars = JsonConvert.DeserializeObject<List<Coche>>(jsonCoches);
+                return cars;
+            }
         }
 
 
