@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcCoreElastiCacheAWS", "MvcCoreElastiCacheAWS\MvcCoreElastiCacheAWS.csproj", "{9DE247DF-9EFB-4315-83B1-52FA7766C34B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9DE247DF-9EFB-4315-83B1-52FA7766C34B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DE247DF-9EFB-4315-83B1-52FA7766C34B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DE247DF-9EFB-4315-83B1-52FA7766C34B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DE247DF-9EFB-4315-83B1-52FA7766C34B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EDF97595-5A57-4EA9-A8D7-4968FB0E50CA}
+	EndGlobalSection
+EndGlobal
