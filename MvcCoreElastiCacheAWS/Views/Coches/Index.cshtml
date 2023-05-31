@@ -45,7 +45,7 @@
             <td>
 
                 @Html.ActionLink("Details", "Details", new {  id=item.IdCoche  }) |
-                <a asp-action="Favoritos" asp-controller="Coches" asp-route-idcoche="@item.IdCoche" class="btn btn-warning">Seleccionar Fav</a>
+                <a asp-action="SeleccionarFavorito" asp-controller="Coches" asp-route-idcoche="@item.IdCoche" class="btn btn-warning">Seleccionar Fav</a>
             </td>
         </tr>
 }
