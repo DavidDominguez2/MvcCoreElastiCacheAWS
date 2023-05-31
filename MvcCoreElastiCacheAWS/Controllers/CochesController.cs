@@ -26,9 +26,10 @@ namespace MvcCoreElastiCacheAWS.Controllers {
 
         public async Task<IActionResult> SeleccionarFavorito(int idcoche) {
             Coche car = this.repo.FindCoche(idcoche);
-            TempData["MENSAJE"] = car.Marca;
+            ViewData["DATA"] = car.Marca;
             await this.serviceCache.AddCocheAsync(car);
-            return RedirectToAction("Favoritos");
+            //return RedirectToAction("Favoritos");
+            return View();
         }
 
         public async Task<IActionResult> Favoritos() {
