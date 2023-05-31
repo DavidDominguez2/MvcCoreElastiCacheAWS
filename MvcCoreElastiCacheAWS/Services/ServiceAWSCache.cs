@@ -1,24 +1,28 @@
 ﻿using MvcCoreElastiCacheAWS.Helpers;
 using MvcCoreElastiCacheAWS.Models;
+using MvcCoreElastiCacheAWS.Repositories;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 
 namespace MvcCoreElastiCacheAWS.Services {
     public class ServiceAWSCache {
         private IDatabase cache;
+        private RepositoryCoches repo;
 
-        public ServiceAWSCache() {
+        public ServiceAWSCache(RepositoryCoches repo) {
             this.cache = HelperCacheRedis.Connection.GetDatabase();
+            this.repo = repo;
         }
 
         public async Task<List<Coche>> GetCochesFavoritosAsync() {
-            string jsonCoches = await this.cache.StringGetAsync("cochesfavoritos");
-            if (jsonCoches == null) {
-                return null;
-            } else {
-                List<Coche> cars = JsonConvert.DeserializeObject<List<Coche>>(jsonCoches);
-                return cars;
-            }
+            return this.repo.GetCoches();
+            //string jsonCoches = await this.cache.StringGetAsync("cochesfavoritos");
+            //if (jsonCoches == null) {
+            //    return null;
+            //} else {
+            //    List<Coche> cars = JsonConvert.DeserializeObject<List<Coche>>(jsonCoches);
+            //    return cars;
+            //}
         }
 
 
